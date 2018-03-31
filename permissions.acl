@@ -21,39 +21,23 @@
 
  // TODO: This is the stock file, need to be changed for our use case.
 
-rule AuthorizeAccessTransaction {
-    description: "Allow all participants to submit AuthorizeAccess transactions"
-    participant: "ANY"
-    operation: CREATE
-    resource: "org.acme.pii.AuthorizeAccess"
-    action: ALLOW
-}
-
-rule RevokeAccessTransaction {
+rule signContract {
     description: "Allow all participants to submit RevokeAccess transactions"
     participant: "ANY"
     operation: CREATE
-    resource: "org.acme.pii.RevokeAccess"
+    resource: "org.linkd.ledger.signContract"
     action: ALLOW
 }
 
 rule OwnRecordFullAccess {
     description: "Allow all participants full access to their own record"
-    participant(p): "org.acme.pii.Member"
+    participant(p): "org.linkd.ledger.Member"
     operation: ALL
-    resource(r): "org.acme.pii.Member"
-    condition: (r.getIdentifier() === p.getIdentifier())
+    resource(r): "org.linkd.ledger.contract"
+    condition: (r.creator.getIdentifier() === p.getIdentifier())
     action: ALLOW
 }
 
-rule ForeignRecordConditionalAccess {
-    description: "Allow participants access to other people's records if granted"
-    participant(p): "org.acme.pii.Member"
-    operation: ALL
-    resource(r): "org.acme.pii.Member"
-    condition: (r.authorized && r.authorized.indexOf(p.getIdentifier()) > -1)
-    action: ALLOW
-}
 
 rule SystemACL {
     description:  "System ACL to permit all access"

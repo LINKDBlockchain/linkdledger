@@ -15,7 +15,7 @@
 /**
  * A business network where members can upload files to be signed, and sign other documents
  */
-namespace org.acme.pii
+namespace org.linkd.ledger
 
 enum contractState {
   o CREATED
@@ -51,14 +51,20 @@ asset contract identified by assetId {
   o contractState state
 }
 
-abstract transaction MemberTransaction {
+abstract transaction ledgerTransaction {
   o String memberId
-}
-
-transaction signContract extends MemberTransaction {
   --> contract Contract
 }
 
+transaction signContract extends ledgerTransaction {
+}
+
+transaction prepareForSignature extends ledgerTransaction {
+}
+
+transaction completeSignoff extends ledgerTransaction {
+}
+
 event MemberEvent {
-  o MemberTransaction memberTransaction
+  o ledgerTransaction ledgerTransaction
 }
