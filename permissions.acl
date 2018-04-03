@@ -1,43 +1,19 @@
-/*
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * Access control rules. These rules allow anyone to submit AuthorizeAccess
- * and RevokeAccess transaction as well as granting full access to a member's
- * own record. A member can access another member's details if the member has
- * added them to their authorized list.
- */
-
- // TODO: This is the stock file, need to be changed for our use case.
-
 rule signContract {
-    description: "Allow all participants to submit RevokeAccess transactions"
+    description: "Allow all participants to submit Sign transactions"
     participant: "ANY"
-    operation: CREATE
-    resource: "org.linkd.ledger.signContract"
+    operation: ALL
+    resource: "org.linkd.ledger.ledgerTransaction"
     action: ALLOW
 }
 
 rule OwnRecordFullAccess {
-    description: "Allow all participants full access to their own record"
+    description: "Allow all participants read access to their own record"
     participant(p): "org.linkd.ledger.Member"
-    operation: ALL
+    operation: READ, UPDATE
     resource(r): "org.linkd.ledger.contract"
-    condition: (r.creator.getIdentifier() === p.getIdentifier())
+    condition: (r.creator.getIdentifier() === p.getIdentifier() || r.signator.getIdentifier() === p.getIdentifier)
     action: ALLOW
 }
-
 
 rule SystemACL {
     description:  "System ACL to permit all access"
