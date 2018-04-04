@@ -6,12 +6,37 @@ rule signContract {
     action: ALLOW
 }
 
-rule OwnRecordFullAccess {
-    description: "Allow all participants read access to their own record"
+rule createContractTransaction {
+  description: "Allow all members to create contracts by using a transaction"
+  participant:"ANY"
+  operation: CREATE
+  resource:"org.linkd.ledger.createContract"
+  action: ALLOW
+}
+
+rule createContract {
+  description: "Allow all members to create contracts"
+  participant:"ANY"
+  operation: CREATE
+  resource:"org.linkd.ledger.contract"
+  action: ALLOW
+}
+
+rule OwnContractFullAccess {
+    description: "Allow all participants read access to their own contracts"
     participant(p): "org.linkd.ledger.Member"
     operation: READ, UPDATE
     resource(r): "org.linkd.ledger.contract"
     condition: (r.creator.getIdentifier() === p.getIdentifier() || r.signator.getIdentifier() === p.getIdentifier)
+    action: ALLOW
+}
+
+rule OwnRecordFullAccess {
+    description: "Allow all participants read access to their own records"
+    participant(t): "org.linkd.ledger.Member"
+    operation: READ, UPDATE
+    resource(v): "org.linkd.ledger.Member"
+    condition: (t.getIdentifier() == v.getIdentifier())
     action: ALLOW
 }
 

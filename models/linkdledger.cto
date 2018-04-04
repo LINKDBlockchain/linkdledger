@@ -38,7 +38,6 @@ asset contract identified by assetId {
 }
 
 abstract transaction ledgerTransaction {
-  o String memberId
   --> contract Contract
 }
 
@@ -49,6 +48,12 @@ transaction prepareForSignature extends ledgerTransaction {
 }
 
 transaction completeSignoff extends ledgerTransaction {
+}
+
+transaction createContract{
+  o String docId
+  o String docHash
+  --> Member signator
 }
 
 event MemberEvent {
