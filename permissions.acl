@@ -27,7 +27,7 @@ rule OwnContractFullAccess {
     participant(p): "org.linkd.ledger.Member"
     operation: READ, UPDATE
     resource(r): "org.linkd.ledger.contract"
-    condition: (r.creator.getIdentifier() === p.getIdentifier() || r.signator.getIdentifier() === p.getIdentifier)
+    condition: (r.creator.getIdentifier() === p.getIdentifier() || r.signator.getIdentifier() === p.getIdentifier())
     action: ALLOW
 }
 
