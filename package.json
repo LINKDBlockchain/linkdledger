@@ -9,14 +9,18 @@
   "email": "info@linkd.ca",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@angular/cli": "^1.7.4",
+    "chai": "latest",
     "composer-admin": "latest",
     "composer-client": "latest",
     "composer-common": "latest",
     "composer-connector-embedded": "latest",
-    "chai": "latest",
     "eslint": "latest",
     "istanbul": "latest",
     "mkdirp": "latest",
     "mocha": "latest"
+  },
+  "dependencies": {
+    "generator-hyperledger-composer": "^0.19.0"
   }
 }
