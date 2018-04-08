@@ -56,6 +56,15 @@ transaction createContract{
   --> Member signator
 }
 
-event MemberEvent {
-  o ledgerTransaction ledgerTransaction
+event contractSignedNotification {
+ --> contract Contract
+ --> Member Signer
+}
+
+event contractCreatedNotification {
+  --> contract Contract
+}
+
+event contractCompletedNotification {
+  --> contract Contract
 }
