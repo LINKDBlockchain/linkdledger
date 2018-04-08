@@ -28,6 +28,11 @@ unzip fabric-dev-servers.zip
 
 # Running Network 
 
+## Build BNA file
+
+Execute this command from the linkdledger directory to create the bno file
+`composer archive create -t dir -n .`
+
 ## Deploy Network to HLF Instance
 
 1. Install the network
